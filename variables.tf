@@ -8,7 +8,7 @@ variable "tags" {
 
 variable "enable_monitoring" {
   description = "Enable installation of Prometheus and Grafana on Kubernetes"
-  default     = true
+  default     = false
 }
 
 variable "enable_logging" {
