@@ -1,6 +1,5 @@
 # Longhorn storage class for PVs/PVCs for the cluster.
 resource "helm_release" "longhorn" {
-  count            = 0
   name             = "longhorn"
   repository       = "https://charts.longhorn.io"
   chart            = "longhorn"

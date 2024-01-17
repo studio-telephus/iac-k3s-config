@@ -19,5 +19,5 @@ jobs:
           RemotePath: "~/components/k3s/dev/config"
           Tfvars: >
             env="dev"
-          DryRun: true
+          DryRun: false
           Destroy: false
