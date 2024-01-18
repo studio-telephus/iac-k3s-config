@@ -16,6 +16,11 @@ variable "enable_logging" {
   default     = false
 }
 
+variable "enable_storage" {
+  description = "Enable installation of Longhorn"
+  default     = false
+}
+
 variable "enable_automatic_node_reboot" {
   description = "Enable automatic reboot of K8s nodes for OS upgrades"
   default     = true

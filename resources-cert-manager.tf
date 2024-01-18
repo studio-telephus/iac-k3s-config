@@ -29,7 +29,7 @@ resource "kubernetes_secret" "cm_secret_ca" {
 }
 
 resource "kubectl_manifest" "cm_cluster_issuer" {
-  yaml_body  = <<-YAML
+  yaml_body = <<-YAML
     apiVersion: cert-manager.io/v1
     kind: ClusterIssuer
     metadata:
@@ -46,7 +46,7 @@ resource "kubectl_manifest" "cm_cluster_issuer" {
 }
 
 resource "kubectl_manifest" "cm_issuer_platform" {
-  yaml_body  = <<-YAML
+  yaml_body = <<-YAML
     apiVersion: cert-manager.io/v1
     kind: Issuer
     metadata:
