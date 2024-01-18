@@ -59,6 +59,5 @@ resource "kubectl_manifest" "kubernetes_dashboard_cluster_role_binding" {
       name: kubernetes-dashboard
       namespace: kubernetes-dashboard
     YAML
-  apply_only = true
   depends_on = [helm_release.kubernetes_dashboard]
 }

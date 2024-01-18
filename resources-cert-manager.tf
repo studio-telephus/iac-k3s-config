@@ -39,7 +39,6 @@ resource "kubectl_manifest" "cm_cluster_issuer" {
       ca:
         secretName: cm-secret-ca
     YAML
-  apply_only = true
   depends_on = [
     helm_release.cert_manager,
     kubernetes_secret.cm_secret_ca
@@ -57,7 +56,6 @@ resource "kubectl_manifest" "cm_issuer_platform" {
       ca:
         secretName: cm-secret-ca
     YAML
-  apply_only = true
   depends_on = [
     helm_release.cert_manager
   ]
