@@ -1,15 +1,23 @@
+resource "kubernetes_namespace" "cert_manager" {
+  metadata {
+    name = "cert-manager"
+  }
+}
+
 resource "helm_release" "cert_manager" {
   name             = "cert-manager"
   repository       = "https://charts.jetstack.io"
   chart            = "cert-manager"
   version          = "1.13.3"
   namespace        = "cert-manager"
-  create_namespace = "true"
+  create_namespace = "false"
   set {
     name  = "installCRDs"
     value = "true"
   }
-  depends_on = [helm_release.ingress_nginx]
+  depends_on = [
+    kubernetes_namespace.cert_manager
+  ]
 }
 
 resource "kubernetes_secret" "cm_secret_ca" {

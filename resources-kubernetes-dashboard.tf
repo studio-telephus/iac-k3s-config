@@ -1,11 +1,16 @@
+resource "kubernetes_namespace" "kubernetes-dashboard" {
+  metadata {
+    name = "kubernetes-dashboard"
+  }
+}
+
 resource "helm_release" "kubernetes_dashboard" {
   name             = "kubernetes-dashboard"
   repository       = "https://kubernetes.github.io/dashboard/"
   chart            = "kubernetes-dashboard"
   version          = "5.11.0"
   namespace        = "kubernetes-dashboard"
-  create_namespace = "true"
-
+  create_namespace = "false"
   set {
     name  = "metricsScraper.enabled"
     value = "true"
@@ -38,9 +43,9 @@ resource "helm_release" "kubernetes_dashboard" {
   ]
 
   depends_on = [
+    kubernetes_namespace.kubernetes-dashboard,
     kubectl_manifest.cm_cluster_issuer,
-    helm_release.ingress_nginx,
-    helm_release.cert_manager,
+    helm_release.cert_manager
   ]
 }
 

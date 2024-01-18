@@ -1,3 +1,9 @@
+resource "kubernetes_namespace" "loki" {
+  metadata {
+    name = "loki"
+  }
+}
+
 # Longhorn storage class for PVs/PVCs for the cluster.
 resource "helm_release" "longhorn" {
   name             = "longhorn"
