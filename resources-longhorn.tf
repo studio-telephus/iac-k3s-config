@@ -1,20 +1,3 @@
-locals {
-  longhorn_config = {
-    persistence = {
-      defaultClassReplicaCount = {
-        dev = 1
-        tst = 2
-      }
-    }
-    defaultSettings = {
-      defaultReplicaCount = {
-        dev = 1
-        tst = 2
-      }
-    }
-  }
-}
-
 resource "kubernetes_namespace" "longhorn_system" {
   metadata {
     name = "longhorn-system"
@@ -36,11 +19,11 @@ resource "helm_release" "longhorn" {
     persistence:
       defaultClass: true
       defaultFsType: ext4
-      defaultClassReplicaCount: ${local.longhorn_config.persistence.defaultClassReplicaCount[var.env]}
+      defaultClassReplicaCount: 2
       defaultReplicaAutoBalance: least-effort
     defaultSettings:
       kubernetesClusterAutoscalerEnabled: false
-      defaultReplicaCount: ${local.longhorn_config.defaultSettings.defaultReplicaCount[var.env]}
+      defaultReplicaCount: 2
       replicaAutoBalance: least-effort
       # replicaReplenishmentWaitInterval: 300
       disableSchedulingOnCordonedNode: true
@@ -50,6 +33,18 @@ resource "helm_release" "longhorn" {
       snapshotDataIntegrityCronjob: 0 3 * * *
       snapshotDataIntegrityImmediateCheckAfterSnapshotCreation: false
       upgradeChecker: false
+    ingress:
+      enabled: true
+      ingressClassName: traefik
+      host: longhorn.${local.cluster_san}
+      tls: true
+      secureBackends: false
+      tlsSecret: longhorn-tls
+      path: /
+      annotations:
+        nginx.ingress.kubernetes.io/ssl-redirect: "true"
+        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+        cert-manager.io/cluster-issuer: "cm-cluster-issuer"
     EOT
   ]
   depends_on = [kubernetes_namespace.longhorn_system]
