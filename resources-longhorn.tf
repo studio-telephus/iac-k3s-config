@@ -55,7 +55,3 @@ resource "helm_release" "longhorn" {
   depends_on = [kubernetes_namespace.longhorn_system]
 }
 
-resource "time_sleep" "wait_for_longhorn" {
-  create_duration = "120s"
-  depends_on      = [helm_release.longhorn]
-}
