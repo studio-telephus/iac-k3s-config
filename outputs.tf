@@ -7,5 +7,5 @@ output "kubernetes_dashboard_token" {
 }
 
 output "kubernetes_dashboard_url" {
-  value = "https://dashboard.${local.cluster_san}"
+  value = "https://kubernetes-dashboard.${local.cluster_san}"
 }

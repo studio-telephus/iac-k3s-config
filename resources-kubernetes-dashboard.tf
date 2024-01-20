@@ -32,11 +32,11 @@ resource "helm_release" "kubernetes_dashboard" {
       enabled: true
       className: traefik
       hosts:
-      - dashboard.${local.cluster_san}
+      - kubernetes-dashboard.${local.cluster_san}
       tls:
       - secretName: kubernetes-dashboard-tls
         hosts:
-        - dashboard.${local.cluster_san}
+        - kubernetes-dashboard.${local.cluster_san}
       annotations:
         cert-manager.io/cluster-issuer: "cm-cluster-issuer"
     EOT
