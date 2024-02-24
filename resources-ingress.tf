@@ -21,7 +21,7 @@
 //          prometheus.io/scrape: "true"
 //          prometheus.io/port: "10254"
 //        externalIPs:
-//        - ${local.external_ip[var.env]}
+//        - ${local.workload_ip[var.env]}
 //        type: NodePort
 //        nodePorts:
 //          http: "30080"
